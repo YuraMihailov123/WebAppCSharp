@@ -37,13 +37,11 @@ namespace WebApp.Controllers
         public string Sum([FromQuery]int[] arr)
         {
             return "Сумма каждого 2-ого нечетного числа - " + Algorithms.CountSum(arr);
-            //return Algorithms.CountSum(someValues);
         }
 
         [Route("home/linked/sum/{num1}+{num2}")]
         public string SumWithLinkedList(int num1,int num2)
         {
-            //335 + 4378
             return Algorithms.LinkedSum(num1, num2);
         }
 
