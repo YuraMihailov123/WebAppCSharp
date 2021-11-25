@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Тестовое веб-приложение</h1>
+    <form method="GET">
+        <input type="text" id="arrId" placeholder="Пример:1,2,3,4" />
+        <input id="btn" type="submit" />
+    </form>
+    <form method="GET">
+        <input type="text" id="stringId" placeholder="Пример:кабак" />
+        <input id="btn2" type="submit" />
+    </form>
+    <form method="GET">
+        <input type="text" id="num1Id" placeholder="333" />
+        <input type="text" id="num2Id" placeholder="7326" />
+        <input id="btn3" type="submit" />
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+    $("#btn").click(function(e) {
+
+        e.preventDefault();
+        var arr = $("#arrId").val().split(',').map(Number);
+        var t = $("input[name='__RequestVerificationToken']").val();
+
+        $.ajax({
+            url: "home/sum",
+            headers:
+            {
+                "RequestVerificationToken": t
+            },
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: { "arr": arr },
+        }).done(function (data) {
+            alert(data);
+        }).fail(function(a, v, e) {
+            alert("Error:" + e);
+        });
+    });
+        $("#btn2").click(function (e) {
+
+            e.preventDefault();
+            var word = $("#stringId").val()
+            var t = $("input[name='__RequestVerificationToken']").val();
+
+            $.ajax({
+                url: "home/palindrom/"+word,
+                headers:
+                {
+                    "RequestVerificationToken": t
+                },
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                traditional: true,
+            }).done(function (data) {
+                alert(data);
+            }).fail(function (a, v, e) {
+                alert("Error:" + e);
+            });
+        });
+        $("#btn3").click(function (e) {
+
+            e.preventDefault();
+            var num1 = $("#num1Id").val()
+            var num2 = $("#num2Id").val()
+            var t = $("input[name='__RequestVerificationToken']").val();
+
+            $.ajax({
+                url: "home/linked/sum/" + num1 + "+" + num2,
+                headers:
+                {
+                    "RequestVerificationToken": t
+                },
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                traditional: true,
+            }).done(function (data) {
+                alert(data);
+            }).fail(function (a, v, e) {
+                alert("Error:" + e);
+            });
+        });
+});</script>
