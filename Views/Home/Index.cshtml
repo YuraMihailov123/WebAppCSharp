@@ -68,23 +68,27 @@
         $("#btn3").click(function (e) {
 
             e.preventDefault();
-            var num1 = $("#num1Id").val()
-            var num2 = $("#num2Id").val()
+            var num1 = parseInt($("#num1Id").val());
+            var num2 = parseInt($("#num2Id").val());
             var t = $("input[name='__RequestVerificationToken']").val();
-
-            $.ajax({
-                url: "home/linked/sum/" + num1 + "+" + num2,
-                headers:
-                {
-                    "RequestVerificationToken": t
-                },
-                type: "GET",
-                contentType: 'application/json; charset=utf-8',
-                traditional: true,
-            }).done(function (data) {
-                alert(data);
-            }).fail(function (a, v, e) {
-                alert("Error:" + e);
-            });
+            if (isNaN(num1) || isNaN(num2)) {
+                alert("Чтобы вычислить сумму через список - вы должны указать в полях числа!");
+                
+            } else {
+                $.ajax({
+                    url: "home/linked/sum/" + num1 + "+" + num2,
+                    headers:
+                    {
+                        "RequestVerificationToken": t
+                    },
+                    type: "GET",
+                    contentType: 'application/json; charset=utf-8',
+                    traditional: true,
+                }).done(function (data) {
+                    alert(data);
+                }).fail(function (a, v, e) {
+                    alert("Error:" + e);
+                });
+            }
         });
 });</script>
